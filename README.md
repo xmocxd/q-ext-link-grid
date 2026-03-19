@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 The app source is **JavaScript** (`app/*.jsx`, `lib/*.js`), not TypeScript.
 
+Styling uses **Tailwind CSS v4** (`@import "tailwindcss"` in `app/globals.css`, PostCSS plugin `@tailwindcss/postcss`).
+
 ## Getting Started
 
 First, run the development server:
