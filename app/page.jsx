@@ -4,18 +4,8 @@ import { loadPagesJson } from "@/lib/loadPages";
 
 export const dynamic = "force-static";
 
-type ResolvedGridItem = {
-  url: string;
-  title: string;
-  iconUrl: string;
-  category: string;
-};
-
-async function resolveIcons(
-  pages: { url: string; title?: string; category: string }[],
-  concurrency = 5,
-) {
-  const out: ResolvedGridItem[] = [];
+async function resolveIcons(pages, concurrency = 5) {
+  const out = [];
   let index = 0;
 
   async function worker() {
@@ -41,15 +31,15 @@ export default async function Home() {
   const pages = await loadPagesJson();
   const items = await resolveIcons(pages);
 
-  const categoryOrder: string[] = [];
-  const categoryToItems = new Map<string, ResolvedGridItem[]>();
+  const categoryOrder = [];
+  const categoryToItems = new Map();
   for (const item of items) {
     const category = item.category;
     if (!categoryToItems.has(category)) {
       categoryToItems.set(category, []);
       categoryOrder.push(category);
     }
-    categoryToItems.get(category)!.push(item);
+    categoryToItems.get(category).push(item);
   }
 
   return (
