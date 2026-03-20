@@ -118,13 +118,13 @@ export default async function Home() {
                 {category}
               </h2>
               <div
-                className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-3.5 px-0.5 py-2"
+                className="flex gap-3.5 px-0.5 py-2 justify-center flex-wrap"
                 aria-label={`Links for ${category}`}
               >
                 {sectionItems.map((item) => (
                   <a
                     key={`${category}::${item.url}`}
-                    className="link-card-hover w-[250px] justify-center items-center flex min-h-[108px] flex-col gap-2.5 rounded-2xl border-0 border-gray-200 p-2.5 transition-[transform,background-color,border-color] duration-150 ease-out hover:-translate-y-px hover:border-transparent hover:bg-gray-100 motion-reduce:hover:translate-y-0 dark:border-slate-700 dark:hover:bg-slate-800/90 justify-self-center self-center"
+                    className="link-card-hover w-[220px] justify-center items-center flex min-h-[120px] flex-col gap-2.5 rounded-2xl border-0 border-gray-200 p-2.5 transition-[transform,background-color,border-color] duration-150 ease-out hover:-translate-y-px hover:border-transparent hover:bg-gray-100 motion-reduce:hover:translate-y-0 dark:border-slate-700 dark:hover:bg-zinc-700/90 justify-self-center self-center"
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
