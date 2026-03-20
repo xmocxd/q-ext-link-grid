@@ -91,3 +91,7 @@ See `docs/for-dummies-nextjs-link-grid.md` for a step-by-step explanation.
 ## Build performance (reference)
 
 See `docs/build-speed.md` for what makes `next build` slow or fast (caches, `build:fast`, env vars, WSL notes).
+
+## GitHub Pages
+
+See `docs/github-pages.md` for **basePath**, **`.nojekyll`** (Jekyll vs `_next`), subtree deploy, and local testing under a repo subpath.
