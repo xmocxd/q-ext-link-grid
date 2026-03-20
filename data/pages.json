@@ -12,11 +12,6 @@
         "url": "https://connect.lutron.com/",
         "fallbackColor": "#c92172",
         "iconImagePath": "/link-icons/6d68eda42d970d4b.ico"
-      },
-      {
-        "url": "https://login.microsoftonline.com/df2300e1-3c5a-40e5-a031-4d349c42c09f/wsfed?wa=wsignin1.0&wtrealm=urn%3asharepointsupportwiki%3afederation&wctx=https%3a%2f%2fsupportwiki.lutron.com%2f_layouts%2f15%2fAuthenticate.aspx%3fSource%3d%252F",
-        "fallbackColor": "#2ad14a",
-        "iconImagePath": "/link-icons/c9a60854c8e34078.ico"
       }
     ]
   },
@@ -28,6 +23,18 @@
         "title": "Lutron Support Wiki",
         "useImage": false,
         "fallbackColor": "#7125b8"
+      },
+      {
+        "url": "https://commercial.lutron.com/us/en/whole-building-systems/athena/athena-system-controls",
+        "title": "Athena System Controls",
+        "fallbackColor": "#65d04f",
+        "iconImagePath": "/link-icons/2a49092ac88eb0f0.png"
+      },
+      {
+        "url": "https://commercial.lutron.com/us/en/node/556",
+        "title": "Vive System Controls",
+        "fallbackColor": "#dc3026",
+        "iconImagePath": "/link-icons/7e046407fa285247.png"
       }
     ]
   }
