@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next build && http-server -c-1 out",
+    "dev": "next build && node scripts/serve-out.mjs",
+    "dev:next": "next dev",
     "build": "next build",
     "build:fast": "node scripts/build-fast.mjs",
-    "start": "http-server -c-1 out",
+    "start": "node scripts/serve-out.mjs",
     "lint": "eslint"
   },
   "dependencies": {

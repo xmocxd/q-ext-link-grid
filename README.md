@@ -6,19 +6,23 @@ Styling uses **Tailwind CSS v3** with PostCSS (`tailwindcss` + `autoprefixer` in
 
 ## Getting Started
 
-First, run the development server:
+This app uses a **GitHub Pages–style base path** (`lib/siteBasePath.js`). Pick one:
+
+**Static preview (matches production `out/`):**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This runs `next build` then `scripts/serve-out.mjs` on port **8080**. Open **`http://127.0.0.1:8080/q-ext-link-grid/`** — not the site root alone, or assets 404 (see `docs/github-pages.md`).
+
+**Hot reload (Next dev server):**
+
+```bash
+npm run dev:next
+```
+
+Open **`http://localhost:3000/q-ext-link-grid/`**.
 
 This homepage is driven by `data/pages.json`.
 

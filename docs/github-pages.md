@@ -95,13 +95,17 @@ This project does **not** automate GitHub Actions here; a typical flow is:
 
 ## 6. Local verification
 
-### 6.1 Mirror the real URL path
+### 6.1 Why plain `http-server out` breaks with `basePath`
 
-With a non-empty `siteBasePath`, do **not** expect `http://localhost:8080/` alone to load assets correctly if you only map the static root to **`out/`**. Open the app at the **subpath**, e.g.:
+GitHub Pages serves the **contents** of your `gh-pages` branch at `https://<user>.github.io/<repo>/`. There is **no** `/<repo>/` folder on disk: the host maps the first URL segment to the site root. So `https://<user>.github.io/<repo>/_next/static/foo.css` reads the file `/_next/static/foo.css` at the **deploy root** (same layout as your local `out/` folder).
 
-`http://localhost:8080/q-ext-link-grid/`
+A generic static server rooted at **`out/`** instead interprets the path literally. The browser requests `http://127.0.0.1:8080/q-ext-link-grid/_next/static/foo.css`, so the server looks for **`out/q-ext-link-grid/_next/...`**, which does not exist → **404** for every asset.
 
-(Adjust host/port to match `http-server` or another static server.)
+**`scripts/serve-out.mjs`** strips `siteBasePath` from the URL and then resolves files under `out/`, matching GitHub Pages behavior.
+
+- **`npm run dev`** — runs `next build` then `node scripts/serve-out.mjs` (default port **8080**). Open **`http://127.0.0.1:8080/q-ext-link-grid/`** (adjust if `PORT` is set).
+- **`npm run start`** — serves the existing **`out/`** the same way (no rebuild).
+- **`npm run dev:next`** — **`next dev`** with hot reload; open **`http://localhost:3000/q-ext-link-grid/`** (Next’s dev server understands `basePath`).
 
 ### 6.2 Quick production checks
 
@@ -120,6 +124,7 @@ After deploy:
 | `next.config.mjs` | Imports `siteBasePath` and applies `basePath`. |
 | `app/components/LinkIcon.jsx` | Prefixes root-relative icon URLs with `siteBasePath`. |
 | `public/.nojekyll` | Copied to `out/.nojekyll` so GitHub Pages serves `_next/`. |
+| `scripts/serve-out.mjs` | Local static preview of `out/` with the same URL shape as GitHub Pages (strip `siteBasePath` before resolving files). |
 
 ---
 

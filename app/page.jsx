@@ -124,7 +124,7 @@ export default async function Home() {
                 {sectionItems.map((item) => (
                   <a
                     key={`${category}::${item.url}`}
-                    className="link-card-hover w-[220px] justify-center items-center flex min-h-[120px] flex-col gap-2.5 rounded-2xl border-0 border-gray-200 p-2.5 transition-[transform,background-color,border-color] duration-150 ease-out hover:-translate-y-px hover:border-transparent hover:bg-gray-100 motion-reduce:hover:translate-y-0 dark:border-slate-700 dark:hover:bg-zinc-700/90 justify-self-center self-center"
+                    className="link-card-hover w-36 justify-center items-center flex min-h-[120px] flex-col gap-2.5 rounded-2xl border-0 p-2.5 transition-[background-color] duration-150 ease-out hover:bg-gray-100 dark:hover:bg-zinc-700/90 justify-self-center self-center no-underline"
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
