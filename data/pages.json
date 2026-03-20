@@ -1,24 +1,16 @@
 [
   {
-    "category": "Frameworks",
+    "category": "",
     "links": [
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://react.dev", "title": "React" }
+      { "url": "https://apps.powerapps.com/play/e/default-92b8b918-66f6-403c-9cea-f17252f8738a/a/6efe85c0-884d-4548-84cf-376d27292ef2?tenantId=92b8b918-66f6-403c-9cea-f17252f8738a&source=AppSharedToUserV2&hint=7d3b2d1a-103d-4bc1-83a7-779e8ab3d44b&sourcetime=1733779192990", "title": "Payroll System (PowerApps)" },
+      { "url": "https://connect.lutron.com/" },
+      { "url": "https://login.microsoftonline.com/df2300e1-3c5a-40e5-a031-4d349c42c09f/wsfed?wa=wsignin1.0&wtrealm=urn%3asharepointsupportwiki%3afederation&wctx=https%3a%2f%2fsupportwiki.lutron.com%2f_layouts%2f15%2fAuthenticate.aspx%3fSource%3d%252F" },
     ]
   },
   {
-    "category": "Languages",
+    "category": "Troubleshooting",
     "links": [
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://nextjs.org", "title": "Next.js" },
-      { "url": "https://www.typescriptlang.org/" }
+      { "url": "https://supportwiki.lutron.com/enter/SitePages/Wiki%20Home.aspx", "title": "Lutron Support Wiki" },
     ]
   }
 ]
