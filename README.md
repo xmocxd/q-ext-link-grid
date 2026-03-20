@@ -54,6 +54,16 @@ After changing `data/pages.json`, rebuild:
 npm run build
 ```
 
+On a **full** build (not `build:fast` with fetch skipped), if a link has **no `title`** in JSON but a title is **read from the page** (`<title>` / `og:title`), that string is **written back** into `data/pages.json` so the next build can skip fetching it for title only.
+
+To **strip generated fields** from `data/pages.json` and keep only `url`, `title`, and `useImage` per link (and `category` per group), run manually:
+
+```bash
+npm run purge
+```
+
+This does **not** run on build.
+
 **Fastest build (no link HTTP):** `npm run build:fast` sets `LINK_GRID_SKIP_FETCH=1` so icons/titles skip network (guessed favicons only). Use when you only need a working `out/` quickly.
 
 **`next build` is lighter:** TypeScript validation during the build is **skipped** (`typescript.ignoreBuildErrors` in `next.config.mjs`). ESLint is not part of `next build` in Next 16 — run `npm run lint` when you want it.

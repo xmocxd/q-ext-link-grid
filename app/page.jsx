@@ -3,6 +3,7 @@ import { ensureFallbackColorsInPagesJson } from "@/lib/ensureFallbackColors";
 import { ensureLocalIconImagesInPagesJson } from "@/lib/ensureLocalIconImages";
 import { linkIconFileExists, isPublicLinkIconPath } from "@/lib/iconImagePath";
 import { loadPagesJson } from "@/lib/loadPages";
+import { persistFetchedTitlesInPagesJson } from "@/lib/persistFetchedTitlesInPagesJson";
 import {
   canonicalPageUrl,
   displayTitleForUrl,
@@ -69,28 +70,40 @@ async function resolveIcons(pages, concurrency = DEFAULT_CONCURRENCY) {
   await Promise.all(workers);
   flushLinkGridFetchCache();
 
-  return pages.map((p) => {
+  const items = pages.map((p) => {
     const key = canonicalPageUrl(p.url) ?? p.url.trim();
-    const { iconUrl, pageTitle } = urlToResult.get(key) ?? {
+    const { iconUrl: fetchedIcon, pageTitle } = urlToResult.get(key) ?? {
       iconUrl: "",
       pageTitle: null,
     };
+    const localIcon =
+      p.useImage !== false && p.iconImagePath?.trim() && isPublicLinkIconPath(p.iconImagePath.trim())
+        ? p.iconImagePath.trim()
+        : null;
+    const iconUrl =
+      p.useImage === false
+        ? null
+        : (fetchedIcon && String(fetchedIcon).trim()) || localIcon || null;
+
     return {
       url: p.url,
       title: displayTitleForUrl(p.url, p.title, pageTitle),
-      iconUrl: p.useImage === false ? null : iconUrl || null,
+      iconUrl,
       category: p.category,
       fallbackColor: p.fallbackColor,
       useImage: p.useImage !== false,
     };
   });
+
+  return { items, urlToResult };
 }
 
 export default async function Home() {
   await ensureFallbackColorsInPagesJson();
   await ensureLocalIconImagesInPagesJson();
   const pages = await loadPagesJson();
-  const items = await resolveIcons(pages);
+  const { items, urlToResult } = await resolveIcons(pages);
+  await persistFetchedTitlesInPagesJson(urlToResult);
 
   const categoryOrder = [];
   const categoryToItems = new Map();

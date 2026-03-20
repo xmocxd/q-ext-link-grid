@@ -8,6 +8,7 @@
     "build": "next build",
     "build:fast": "node scripts/build-fast.mjs",
     "start": "node scripts/serve-out.mjs",
+    "purge": "node scripts/purge-pages-json.mjs",
     "lint": "eslint"
   },
   "dependencies": {

@@ -5,12 +5,13 @@
       {
         "url": "https://apps.powerapps.com/play/e/default-92b8b918-66f6-403c-9cea-f17252f8738a/a/6efe85c0-884d-4548-84cf-376d27292ef2?tenantId=92b8b918-66f6-403c-9cea-f17252f8738a&source=AppSharedToUserV2&hint=7d3b2d1a-103d-4bc1-83a7-779e8ab3d44b&sourcetime=1733779192990",
         "title": "Payroll System (PowerApps)",
-        "fallbackColor": "#4268ce",
+        "fallbackColor": "#24df41",
         "iconImagePath": "/link-icons/fa395897d29c42af.ico"
       },
       {
         "url": "https://connect.lutron.com/",
-        "fallbackColor": "#c92172",
+        "title": "Lutron Connect Portal",
+        "fallbackColor": "#2ed974",
         "iconImagePath": "/link-icons/6d68eda42d970d4b.ico"
       }
     ]
@@ -21,19 +22,21 @@
       {
         "url": "https://supportwiki.lutron.com/enter/SitePages/Wiki%20Home.aspx",
         "title": "Lutron Support Wiki",
-        "useImage": false,
-        "fallbackColor": "#7125b8"
+        "fallbackColor": "#e243b5",
+        "iconImagePath": "/link-icons/leaf.png"
       },
       {
         "url": "https://commercial.lutron.com/us/en/whole-building-systems/athena/athena-system-controls",
         "title": "Athena System Controls",
-        "fallbackColor": "#65d04f",
+        "fallbackColor": "#369ccb",
+        "useImage": false,
         "iconImagePath": "/link-icons/2a49092ac88eb0f0.png"
       },
       {
         "url": "https://commercial.lutron.com/us/en/node/556",
         "title": "Vive System Controls",
-        "fallbackColor": "#dc3026",
+        "fallbackColor": "#d49b22",
+        "useImage": false,
         "iconImagePath": "/link-icons/7e046407fa285247.png"
       }
     ]
