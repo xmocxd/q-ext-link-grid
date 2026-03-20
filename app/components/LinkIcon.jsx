@@ -2,6 +2,14 @@
 
 import { useCallback, useState } from "react";
 
+import { siteBasePath } from "@/lib/siteBasePath";
+
+/** Prefix root-relative public paths with `basePath` (GitHub Pages project sites). */
+function withBasePath(path) {
+  if (!path || !path.startsWith("/") || path.startsWith("//")) return path;
+  return `${siteBasePath}${path}`;
+}
+
 function firstLetter(title) {
   const t = String(title ?? "").trim();
   if (!t) return "?";
@@ -44,7 +52,7 @@ export function LinkIcon({ iconUrl, title, fallbackColor, useImage = true }) {
   return (
     <img
       className="h-11 w-11 shrink-0 rounded-xl object-cover"
-      src={iconUrl}
+      src={withBasePath(iconUrl)}
       alt=""
       loading="lazy"
       onError={onError}
