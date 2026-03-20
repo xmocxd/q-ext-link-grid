@@ -3,12 +3,23 @@
     "category": "Frameworks",
     "links": [
       { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
       { "url": "https://react.dev", "title": "React" }
     ]
   },
   {
     "category": "Languages",
-    "links": [{ "url": "https://www.typescriptlang.org/" }]
+    "links": [
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://nextjs.org", "title": "Next.js" },
+      { "url": "https://www.typescriptlang.org/" }
+    ]
   }
 ]
 

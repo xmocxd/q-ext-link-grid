@@ -17,6 +17,9 @@
 /.next/
 /out/
 
+# build-time fetch cache (icon/title per URL — speeds repeat `next build`)
+/.cache/
+
 # production
 /build
 

@@ -2,7 +2,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 The app source is **JavaScript** (`app/*.jsx`, `lib/*.js`), not TypeScript.
 
-Styling uses **Tailwind CSS v4** (`@import "tailwindcss"` in `app/globals.css`, PostCSS plugin `@tailwindcss/postcss`).
+Styling uses **Tailwind CSS v3** with PostCSS (`tailwindcss` + `autoprefixer` in `postcss.config.mjs`). This avoids native `lightningcss` bindings that can break when `node_modules` is on a Windows drive but you run `next build` inside **WSL** — if you still see platform errors, run `rm -rf node_modules && npm install` in the same environment you use to build.
 
 ## Getting Started
 
@@ -50,6 +50,21 @@ After changing `data/pages.json`, rebuild:
 npm run build
 ```
 
+**Fastest build (no link HTTP):** `npm run build:fast` sets `LINK_GRID_SKIP_FETCH=1` so icons/titles skip network (guessed favicons only). Use when you only need a working `out/` quickly.
+
+**`next build` is lighter:** TypeScript validation during the build is **skipped** (`typescript.ignoreBuildErrors` in `next.config.mjs`). ESLint is not part of `next build` in Next 16 — run `npm run lint` when you want it.
+
+**Faster rebuilds with network:** later `npm run build` runs reuse `.cache/link-grid-fetch.json` (gitignored). Delete `.cache/` or set `LINK_GRID_FETCH_CACHE=0` to refetch. Tune with `LINK_GRID_FETCH_CONCURRENCY`, `LINK_GRID_FETCH_TIMEOUT_MS`.
+
+**Time the build in WSL** (use a Linux `node_modules` if the project lives under `/mnt/c/...`):
+
+```bash
+cd /mnt/c/Users/YOU/git/q-ext-link-grid   # adjust path
+rm -rf node_modules && npm install        # once, inside WSL
+/usr/bin/time -f 'elapsed %e s' npm run build:fast
+/usr/bin/time -f 'elapsed %e s' npm run build
+```
+
 The generated static site will be in `out/` (open `out/index.html` or host `out/` on a static server).
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
@@ -72,3 +87,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 ## Beginner Docs
 
 See `docs/for-dummies-nextjs-link-grid.md` for a step-by-step explanation.
+
+## Build performance (reference)
+
+See `docs/build-speed.md` for what makes `next build` slow or fast (caches, `build:fast`, env vars, WSL notes).

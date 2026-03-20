@@ -1,31 +1,64 @@
-import { displayTitleForUrl, resolveIconAndTitleForUrl } from "@/lib/resolveIcon";
+import {
+  canonicalPageUrl,
+  displayTitleForUrl,
+  flushLinkGridFetchCache,
+  resolveIconAndTitleForUrl,
+} from "@/lib/resolveIcon";
 import { loadPagesJson } from "@/lib/loadPages";
 
 // Next.js route segment config: force this page to be pre-rendered at build time as static HTML.
 // That matches `output: "export"` in next.config.mjs — no per-request server rendering for `/`.
 export const dynamic = "force-static";
 
-async function resolveIcons(pages, concurrency = 5) {
-  const out = [];
+const DEFAULT_CONCURRENCY = Math.max(
+  1,
+  Math.min(32, Number.parseInt(process.env.LINK_GRID_FETCH_CONCURRENCY ?? "12", 10) || 12),
+);
+
+/**
+ * Resolve icon + title for each unique URL once, then map back to all rows (faster when the same
+ * URL appears in multiple categories). Results are cached on disk under `.cache/link-grid-fetch.json`.
+ */
+async function resolveIcons(pages, concurrency = DEFAULT_CONCURRENCY) {
+  const urlKeys = [];
+  const seen = new Set();
+  for (const p of pages) {
+    const key = canonicalPageUrl(p.url) ?? p.url.trim();
+    if (!seen.has(key)) {
+      seen.add(key);
+      urlKeys.push(key);
+    }
+  }
+
+  const urlToResult = new Map();
   let index = 0;
 
   async function worker() {
-    while (index < pages.length) {
+    while (index < urlKeys.length) {
       const currentIndex = index++;
-      const p = pages[currentIndex];
-      const { iconUrl, pageTitle } = await resolveIconAndTitleForUrl(p.url);
-      out[currentIndex] = {
-        url: p.url,
-        title: displayTitleForUrl(p.url, p.title, pageTitle),
-        iconUrl,
-        category: p.category,
-      };
+      const urlKey = urlKeys[currentIndex];
+      const result = await resolveIconAndTitleForUrl(urlKey);
+      urlToResult.set(urlKey, result);
     }
   }
 
   const workers = Array.from({ length: Math.max(1, concurrency) }, () => worker());
   await Promise.all(workers);
-  return out;
+  flushLinkGridFetchCache();
+
+  return pages.map((p) => {
+    const key = canonicalPageUrl(p.url) ?? p.url.trim();
+    const { iconUrl, pageTitle } = urlToResult.get(key) ?? {
+      iconUrl: "",
+      pageTitle: null,
+    };
+    return {
+      url: p.url,
+      title: displayTitleForUrl(p.url, p.title, pageTitle),
+      iconUrl,
+      category: p.category,
+    };
+  });
 }
 
 export default async function Home() {
@@ -44,18 +77,7 @@ export default async function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-zinc-50 px-6 pb-18 pt-12 text-gray-900 dark:bg-[#0b0f19] dark:text-gray-100">
-      <header className="mx-auto mb-6 max-w-[1100px] rounded-2xl border border-gray-200 bg-white p-[18px] dark:border-slate-700 dark:bg-slate-900">
-        <h1 className="text-[28px] font-bold tracking-tight">Link Grid</h1>
-        <p className="mt-2 text-sm leading-snug text-gray-500 dark:text-gray-400">
-          Add entries to{" "}
-          <code className="rounded-md bg-gray-100 px-1.5 py-0.5 font-mono text-[13px] text-gray-800 dark:bg-slate-800 dark:text-gray-200">
-            data/pages.json
-          </code>{" "}
-          and rebuild.
-        </p>
-      </header>
-
+    <main className="min-h-screen px-6 pb-18 pt-12 text-gray-900 dark:bg-[#2F2F2F] bg-[#2F2F2F] dark:text-gray-100">
       <div className="space-y-6">
         {categoryOrder.map((category) => {
           const sectionItems = categoryToItems.get(category) ?? [];
@@ -75,7 +97,7 @@ export default async function Home() {
                 {sectionItems.map((item) => (
                   <a
                     key={`${category}::${item.url}`}
-                    className="link-card-hover flex min-h-[108px] flex-col items-start gap-2.5 rounded-2xl border border-gray-200 bg-white p-3.5 transition-[transform,background-color,border-color] duration-150 ease-out hover:-translate-y-px hover:border-transparent hover:bg-gray-100 motion-reduce:hover:translate-y-0 dark:border-slate-700 dark:bg-slate-900 dark:hover:bg-slate-800/90"
+                    className="link-card-hover w-full justify-center items-center flex min-h-[108px] flex-col gap-2.5 rounded-2xl border-0 border-gray-200 p-2.5 transition-[transform,background-color,border-color] duration-150 ease-out hover:-translate-y-px hover:border-transparent hover:bg-gray-100 motion-reduce:hover:translate-y-0 dark:border-slate-700 dark:hover:bg-slate-800/90 justify-self-center self-center"
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
@@ -87,7 +109,7 @@ export default async function Home() {
                       alt=""
                       loading="lazy"
                     />
-                    <div className="line-clamp-2 text-sm font-semibold leading-tight text-gray-900 dark:text-gray-100">
+                    <div className="line-clamp-2 text-sm text-center font-semibold leading-tight text-gray-900 dark:text-gray-100">
                       {item.title}
                     </div>
                   </a>
