@@ -47,18 +47,20 @@
       {
         "url": "https://qnorthwest.sharepoint.com/sites/FieldService1/Shared%20Documents/Forms/AllItems.aspx",
         "title": "Sharepoint Technical Library",
-        "fallbackColor": "#2d6aad"
+        "fallbackColor": "#2d6aad",
+        "iconImagePath": "/link-icons/q.png"
       },
       {
         "url": "https://remotemanager.digi.com/ui/login",
         "fallbackColor": "#c63b62",
-        "title": "Digi Remote Manager"
+        "title": "Digi Remote Manager",
+        "iconImagePath": "/link-icons/digi.ico"
       },
       {
         "url": "https://support.lutron.com/us/en/product/quantum/documents/product-specification-submittals",
         "fallbackColor": "#47cbbf",
         "iconImagePath": "/link-icons/98cd8930b621aba2.ico",
-        "title": "Quantum | Product Specification Submittals"
+        "title": "Quantum Support"
       }
     ]
   }

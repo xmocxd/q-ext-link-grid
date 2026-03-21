@@ -14,7 +14,7 @@ This app uses a **GitHub Pages–style base path** (`lib/siteBasePath.js`). Pick
 npm run dev
 ```
 
-This runs `next build` then `scripts/serve-out.mjs` on port **8080**. Open **`http://127.0.0.1:8080/q-ext-link-grid/`** — not the site root alone, or assets 404 (see `docs/github-pages.md`).
+This runs `next build` then `scripts/serve-out.mjs` on port **8080** (override with `PORT`). Open **`http://127.0.0.1:8080/q-ext-link-grid/`** — not the site root alone, or assets 404 (see `docs/github-pages.md`). If you see **EADDRINUSE**, something else is bound to that port; stop it or run e.g. **`PORT=8081 npm run start`** (after `npm run build`).
 
 **Hot reload (Next dev server):**
 

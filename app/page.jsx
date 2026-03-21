@@ -117,14 +117,14 @@ export default async function Home() {
   }
 
   return (
-    <main className="flex flex-col justify-center min-h-screen px-6 pb-18 pt-12 text-gray-900 dark:bg-[#2F2F2F] bg-[#2F2F2F] dark:text-gray-100 ">
-      <div className="space-y-6">
+    <main className="text-gray-900 dark:bg-[#2F2F2F] bg-[#2F2F2F] dark:text-gray-100 ">
+      <div className="flex flex-col justify-center min-h-screen px-6 pb-18 pt-12">
         {categoryOrder.map((category) => {
           const sectionItems = categoryToItems.get(category) ?? [];
           return (
             <section
               key={category}
-              className="mx-auto max-w-[1100px]"
+              className="mx-auto max-w-[1000px] mb-10"
               aria-label={`Category: ${category}`}
             >
               <h2 className="text-center mb-3 text-lg font-extrabold text-gray-900 dark:text-gray-500">

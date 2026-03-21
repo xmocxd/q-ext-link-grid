@@ -130,7 +130,16 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(PORT, () => {
+server.on("error", (err) => {
+  if (err.code === "EADDRINUSE") {
+    console.error(`[serve-out] Port ${PORT} is already in use (another serve-out, http-server, or app).`);
+    console.error(`  Stop that process, or use a different port: PORT=8081 npm run start`);
+    process.exit(1);
+  }
+  throw err;
+});
+
+server.listen(PORT, "127.0.0.1", () => {
   const base = siteBasePath || "/";
   console.log(`Serving ${outDir} at http://127.0.0.1:${PORT}${base}`);
   if (siteBasePath) {
