@@ -17,6 +17,7 @@
       {
         "url": "https://lutron.my.site.com/ASC2/s/",
         "title": "Field Service Lightning",
+        "useImage": false,
         "fallbackColor": "#d450cd"
       }
     ]
