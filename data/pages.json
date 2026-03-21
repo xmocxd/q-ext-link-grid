@@ -16,6 +16,7 @@
       },
       {
         "url": "https://lutron.my.site.com/ASC2/s/",
+        "title": "Field Service Lightning",
         "fallbackColor": "#d450cd"
       }
     ]
@@ -45,6 +46,7 @@
       },
       {
         "url": "https://qnorthwest.sharepoint.com/sites/FieldService1/Shared%20Documents/Forms/AllItems.aspx",
+        "title": "Sharepoint Technical Library",
         "fallbackColor": "#2d6aad"
       },
       {
